@@ -19,6 +19,9 @@ package net.fabricmc.fabric.api.biome.v1;
 
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
+
+import net.fabricmc.fabric.impl.biome.TheEndBiomeData;
 
 /**
  * API that exposes some internals of the minecraft default biome source for The End.
@@ -27,9 +30,9 @@ import net.minecraft.world.biome.Biome;
  * Because of the volatility of world generation in Minecraft 1.16, this API is marked experimental
  * since it is likely to change in future Minecraft versions.
  */
-@Deprecated
 public final class TheEndBiomes {
-	private TheEndBiomes() { }
+	private TheEndBiomes() {
+	}
 
 	/**
 	 * <p>Adds the biome as a main end island biome with the specified weight; note that this includes the main island
@@ -43,7 +46,7 @@ public final class TheEndBiomes {
 	 *               Vanilla biomes have a weight of 1.0
 	 */
 	public static void addMainIslandBiome(RegistryKey<Biome> biome, double weight) {
-		org.quiltmc.qsl.worldgen.biome.api.TheEndBiomes.addMainIslandBiome(biome, weight);
+		TheEndBiomeData.addEndBiomeReplacement(BiomeKeys.THE_END, biome, weight);
 	}
 
 	/**
@@ -56,7 +59,7 @@ public final class TheEndBiomes {
 	 *               The vanilla biome has a weight of 1.0.
 	 */
 	public static void addHighlandsBiome(RegistryKey<Biome> biome, double weight) {
-		org.quiltmc.qsl.worldgen.biome.api.TheEndBiomes.addHighlandsBiome(biome, weight);
+		TheEndBiomeData.addEndBiomeReplacement(BiomeKeys.END_HIGHLANDS, biome, weight);
 	}
 
 	/**
@@ -69,7 +72,7 @@ public final class TheEndBiomes {
 	 *               The vanilla biome has a weight of 1.0.
 	 */
 	public static void addSmallIslandsBiome(RegistryKey<Biome> biome, double weight) {
-		org.quiltmc.qsl.worldgen.biome.api.TheEndBiomes.addSmallIslandsBiome(biome, weight);
+		TheEndBiomeData.addEndBiomeReplacement(BiomeKeys.SMALL_END_ISLANDS, biome, weight);
 	}
 
 	/**
@@ -84,7 +87,7 @@ public final class TheEndBiomes {
 	 *                  The vanilla biome has a weight of 1.0.
 	 */
 	public static void addMidlandsBiome(RegistryKey<Biome> highlands, RegistryKey<Biome> midlands, double weight) {
-		org.quiltmc.qsl.worldgen.biome.api.TheEndBiomes.addMidlandsBiome(highlands, midlands, weight);
+		TheEndBiomeData.addEndMidlandsReplacement(highlands, midlands, weight);
 	}
 
 	/**
@@ -99,6 +102,6 @@ public final class TheEndBiomes {
 	 *                  The vanilla biome has a weight of 1.0.
 	 */
 	public static void addBarrensBiome(RegistryKey<Biome> highlands, RegistryKey<Biome> barrens, double weight) {
-		org.quiltmc.qsl.worldgen.biome.api.TheEndBiomes.addBarrensBiome(highlands, barrens, weight);
+		TheEndBiomeData.addEndBarrensReplacement(highlands, barrens, weight);
 	}
 }

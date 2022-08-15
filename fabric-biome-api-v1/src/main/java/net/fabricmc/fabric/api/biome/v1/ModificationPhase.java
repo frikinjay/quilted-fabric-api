@@ -17,8 +17,6 @@
 
 package net.fabricmc.fabric.api.biome.v1;
 
-import org.jetbrains.annotations.ApiStatus;
-
 /**
  * To achieve a predictable order for biome modifiers, and to aid with mod compatibility, modifiers need to declare
  * the phase in which they will be applied.
@@ -33,7 +31,6 @@ import org.jetbrains.annotations.ApiStatus;
  *
  * <p><b>Experimental feature</b>, may be removed or changed without further notice.
  */
-@Deprecated
 public enum ModificationPhase {
 	/**
 	 * The appropriate phase for enriching biomes by adding to them without relying on
@@ -41,7 +38,7 @@ public enum ModificationPhase {
 	 *
 	 * <p><b>Examples:</b> New ores, new vegetation, new structures
 	 */
-	ADDITIONS(org.quiltmc.qsl.worldgen.biome.api.ModificationPhase.ADDITIONS),
+	ADDITIONS,
 
 	/**
 	 * The appropriate phase for modifiers that remove features or other aspects of biomes (i.e. removal of spawns,
@@ -49,14 +46,14 @@ public enum ModificationPhase {
 	 *
 	 * <p><b>Examples:</b> Remove iron ore from plains, remove ghasts
 	 */
-	REMOVALS(org.quiltmc.qsl.worldgen.biome.api.ModificationPhase.REMOVALS),
+	REMOVALS,
 
 	/**
 	 * The appropriate phase for modifiers that replace existing features with modified features.
 	 *
 	 * <p><b>Examples:</b> Replace mineshafts with biome-specific mineshafts
 	 */
-	REPLACEMENTS(org.quiltmc.qsl.worldgen.biome.api.ModificationPhase.REPLACEMENTS),
+	REPLACEMENTS,
 
 	/**
 	 * The appropriate phase for modifiers that perform wide-reaching biome postprocessing.
@@ -64,16 +61,5 @@ public enum ModificationPhase {
 	 * <p><b>Examples:</b> Mods that allow modpack authors to customize world generation, changing biome
 	 * properties (i.e. category) that other mods rely on.
 	 */
-	POST_PROCESSING(org.quiltmc.qsl.worldgen.biome.api.ModificationPhase.POST_PROCESSING);
-
-	private final org.quiltmc.qsl.worldgen.biome.api.ModificationPhase quiltEquivalent;
-
-	ModificationPhase(org.quiltmc.qsl.worldgen.biome.api.ModificationPhase quiltEquivalent) {
-		this.quiltEquivalent = quiltEquivalent;
-	}
-
-	@ApiStatus.Internal
-	protected org.quiltmc.qsl.worldgen.biome.api.ModificationPhase getQuiltEquivalent() {
-		return this.quiltEquivalent;
-	}
+	POST_PROCESSING
 }

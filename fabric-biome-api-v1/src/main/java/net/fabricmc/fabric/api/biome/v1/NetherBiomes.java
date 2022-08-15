@@ -21,14 +21,16 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 
+import net.fabricmc.fabric.impl.biome.NetherBiomeData;
+
 /**
  * API that exposes the internals of Minecraft's nether biome code.
  *
  * <p><b>Experimental feature</b>, may be removed or changed without further notice.
  */
-@Deprecated
 public final class NetherBiomes {
-	private NetherBiomes() { }
+	private NetherBiomes() {
+	}
 
 	/**
 	 * Adds a biome to the Nether generator.
@@ -38,7 +40,15 @@ public final class NetherBiomes {
 	 * @see MultiNoiseUtil.NoiseValuePoint
 	 */
 	public static void addNetherBiome(RegistryKey<Biome> biome, MultiNoiseUtil.NoiseValuePoint mixedNoisePoint) {
-		org.quiltmc.qsl.worldgen.biome.api.NetherBiomes.addNetherBiome(biome, mixedNoisePoint);
+		NetherBiomeData.addNetherBiome(biome, MultiNoiseUtil.createNoiseHypercube(
+				mixedNoisePoint.temperatureNoise(),
+				mixedNoisePoint.humidityNoise(),
+				mixedNoisePoint.continentalnessNoise(),
+				mixedNoisePoint.erosionNoise(),
+				mixedNoisePoint.depth(),
+				mixedNoisePoint.weirdnessNoise(),
+				0
+		));
 	}
 
 	/**
@@ -49,7 +59,7 @@ public final class NetherBiomes {
 	 * @see MultiNoiseUtil.NoiseHypercube
 	 */
 	public static void addNetherBiome(RegistryKey<Biome> biome, MultiNoiseUtil.NoiseHypercube mixedNoisePoint) {
-		org.quiltmc.qsl.worldgen.biome.api.NetherBiomes.addNetherBiome(biome, mixedNoisePoint);
+		NetherBiomeData.addNetherBiome(biome, mixedNoisePoint);
 	}
 
 	/**
@@ -57,6 +67,6 @@ public final class NetherBiomes {
 	 * and any biomes added to the Nether by mods.
 	 */
 	public static boolean canGenerateInNether(RegistryKey<Biome> biome) {
-		return org.quiltmc.qsl.worldgen.biome.api.NetherBiomes.canGenerateInNether(biome);
+		return NetherBiomeData.canGenerateInNether(biome);
 	}
 }
